@@ -17,7 +17,7 @@ class SalesReporter
     private $repo;
 
     /**
-     * @param mixed SalesRepository $repo
+     * @param object SalesRepository $repo
      */
     public function __construct(SalesRepository $repo)
     {
