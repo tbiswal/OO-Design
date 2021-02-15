@@ -31,6 +31,11 @@ class AreaCalculator
             // }
 
             // So how we can extend the behavior by closing the modification?
+
+
+            // -----------------------
+            // Uncle Bob says "Separate extensible behavior behind an interface,
+            // and flip the dependencies"
         }
 
 
