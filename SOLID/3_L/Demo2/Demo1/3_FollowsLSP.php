@@ -2,7 +2,7 @@
 
 interface LessonRepositoryInterface {
 
-  public function getAll();
+  public function getAll(): array;
 
 }
 
@@ -31,13 +31,12 @@ class DbLessonRepository implements LessonRepositoryInterface {
 
   {
 
-    return Lesson::all(); // violates the LSP
+    return Lesson::all()->toArray();
 
   }
 
 }
 
-// Note: The consumer of these two classes will not implement identically
 
 function foo(LessonRepositoryInterface $lesson)
 
@@ -45,7 +44,5 @@ function foo(LessonRepositoryInterface $lesson)
 
   $lessons = $lesson->getAll();
 
-  //if (is_a()) Violates OCP
-  //if (instanceof()) Violates OCP
 
 }
