@@ -1,50 +1,45 @@
 <?php
 
-// interface segregation principle - good example
-interface IWorkable {
-    public function work();
-}
+interface OnClickListener {
 
-interface IFeedable {
-    public function eat();
+    function onClick();
+
 }
 
 
-class Worker implements IWorkable, IFeedable{
-    public function work() {
-        // working
-    }
-    public function eat() {
-        // eating in launch break
-        //
-    }
+interface OnLongClickListener {
+
+    function onLongClick();
+
 }
 
-class SuperWorker implements IWorkable, IFeedable{
-    public function work() {
-    // working much more
+
+class Button implements OnClickListener, OnLongClickListener {
+
+    public function onClick() {
+
+        // Overrides click and submit the form on save
+
     }
 
-    public function eat() {
-    // eating in launch break
+
+    public function onLongClick() {
+
+        // On long click change the colour of the button
+
     }
+
 }
 
-class RobotWorker implements IWorkable {
-    public function work() {
-    // working
+
+class span implements OnClickListener {
+
+    public function onClick() {
+
+        // On click expand the span
+
     }
+
 }
 
-class Manager {
 
-    private $worker;
-
-    public function setWorker(IWorkable $w) {
-        $this->worker = $w;
-    }
-
-    public function manage() {
-        $this->worker.work();
-    }
-}

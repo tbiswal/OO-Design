@@ -1,19 +1,26 @@
 <?php
 
-class PasswordReminder {
+class Authenticator {
 
-    /**
-     * @var MySqlConnection
-     */
-    private $dbConnection;
+    public function __construct(DatabaseConnection $db) {
 
-
-    public function __construct(MySqlConnection $dbConnection)
-
-    {
-
-        $this->dbConnection = $dbConnection;
+        $this->db = $db;
 
     }
+
+
+    public function findUser($id)
+    {
+
+        return $this->db->exec('select * from users where id = ?', array($id));
+
+    }
+
+
+    public function authenticate($credentials) {
+
+        // Authenticate the user...
+
+    } 
 
 }

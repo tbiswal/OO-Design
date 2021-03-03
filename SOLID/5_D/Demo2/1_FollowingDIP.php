@@ -1,35 +1,75 @@
 <?php
 
-interface ConnectionInterface {
+interface UserProviderInterface {
 
-    public function connect();
+    public function find($id);
+
+    public function findByUsername($username);
 
 }
 
-class DbConnection implements ConnectionInterface {
+class Authenticator {
 
-    public function connect()
 
+    public function __construct(UserProviderInterface $users,
+                             HasherInterface $hash) 
     {
-        //TODO: Implement connect() method
+
+        $this->hash = $hash;
+
+        $this->users = $users;
+
     }
-}
 
 
-class PasswordReminder {
-
-    /**
-     * @var MySqlConnection
-     */
-    private $dbConnection;
-
-
-    public function __construct(ConnectionInterface $dbConnection)
+    public function findUser($id) 
 
     {
 
-        $this->dbConnection = $dbConnection;
+        return $this->users->find($id);
 
+    }
+
+
+    public function authenticate($credentials) 
+
+    {
+
+        $user = $this->users->findByUsername($credentials['username']); 
+
+        return $this->hash->make($credentials['password']) == $user->password;
+
+    }
+
+}
+
+
+class RedisUserProvider implements UserProviderInterface {
+
+
+    public function __construct(RedisConnection $redis)
+
+    {
+
+        $this->redis = $redis;
+
+    }
+
+
+    public function find($id)
+
+    {
+
+        $this->redis->get('users:'.$id);
+    }
+
+
+    public function findByUsername()
+
+    {
+        $id = $this->redis->get('user:id:'.$username);
+
+        return $this->find($id);
     }
 
 }

@@ -1,50 +1,45 @@
 <?php
-// interface segregation principle - bad example
-interface IWorker {
-    public function work();
-    public function eat();
+
+interface OnClickListener {
+
+    function onClick();
+
+    function onLongClick();
+
 }
 
-class Worker implements IWorker{
-    public function work() {
-        // working
+class Button implements OnClickListener {
+
+    public function onClick() {
+
+        // Overrides click and submit the form on save
+
     }
-    public function eat() {
-        // eating in launch break
-        //
+
+
+    public function onLongClick() {
+
+    // On long click change the colour of the button
+
+    }
+
+}
+
+class span implements OnClickListener {
+
+    public function onClick() {
+
+        // On click expand the span
+
+    }
+
+
+    // Forcefully implemented
+
+    public function onLongClick() {
+
+        return null;
+
     }
 }
 
-class SuperWorker implements IWorker{
-    public function work() {
-    // working much more
-    }
-
-    public function eat() {
-    // eating in launch break
-    }
-}
-
-// Violation
-class RobotWorker implements IWorker{
-    public function work() {
-    // working much more
-    }
-
-    public function eat() {
-    // eating in launch break
-    }
-}
-
-class Manager {
-
-    private $worker;
-
-    public function setWorker(IWorker $w) {
-        $this->worker = $w;
-    }
-
-    public function manage() {
-        $this->worker.work();
-    }
-}
